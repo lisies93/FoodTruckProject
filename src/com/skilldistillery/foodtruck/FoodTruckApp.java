@@ -141,6 +141,10 @@ public class FoodTruckApp {
 					System.out.println("Thanks for using FoodBack! Hope to see you soon!");
 					kb.close();
 					option = false;
+					break;
+				default:
+					System.out.println("Invalid option please try again");
+					continue;
 
 				}
 
