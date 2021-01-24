@@ -5,12 +5,12 @@ public class FoodTruck {
 	private int numID;
 	private String truckName;
 	private String FoodType;
-	private int starRating;
+	private double starRating;
 	
 	
 	public FoodTruck() {}
 	
-	public FoodTruck(int numID, String truckName, String foodType, int starRating) {
+	public FoodTruck(int numID, String truckName, String foodType, double starRating) {
 		this.numID = numID;
 		this.truckName = truckName;
 		this.FoodType = foodType;
@@ -51,11 +51,11 @@ public class FoodTruck {
 		FoodType = foodType;
 	}
 
-	public int getStarRating() {
+	public double getStarRating() {
 		return starRating;
 	}
 
-	public void setStarRating(int starRating) {
+	public void setStarRating(double starRating) {
 		this.starRating = starRating;
 	}
 	
