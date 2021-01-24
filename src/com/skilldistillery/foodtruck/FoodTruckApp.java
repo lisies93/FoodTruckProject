@@ -21,59 +21,57 @@ public class FoodTruckApp {
 
 		// creating a foodtruck array for my 5 objects
 		FoodTruck[] ftArr = new FoodTruck[5];
-		FoodTruck[] newFtArr = new FoodTruck[ftArr.length];
-		int numTrucksEntered = 0;
-		boolean enter = true;
 
 		// prompt the user to enter up to 5 food trucks
 		for (int i = 0; i < ftArr.length; i++) {
-			if (enter) {
-				System.out.println();
-				System.out.print("Enter Food Truck #" + (i + 1));
-				System.out.println();
-				System.out.print("What's the name of the food truck?");
-				String truckName = kb.nextLine();
-				if (truckName.equals("quit") || truckName.equals("Quit") || truckName.equals("QUIT")) {
-					if (i != 0) {
-						break;
-					} else {
-						System.out.println("Please enter at least 1 truck ");
-						i = i - 1;
-						continue;
-					}
-				} else {
-					System.out.println();
-					System.out.print("What's the food type?");
-					String truckFoodType = kb.nextLine();
-					System.out.println();
-					System.out.print("What's the star rate?");
-					int starRating = kb.nextInt();
-					kb.nextLine();
-					System.out.println();
-					numTrucksEntered = numTrucksEntered + 1;
-					newFtArr[i] = ftArr[i] = new FoodTruck(i, truckName, truckFoodType, starRating);
-				}
-			}
-		}
-		FoodTruck[] trucksEntered = new FoodTruck[numTrucksEntered];
-		for (int count = 0; count < trucksEntered.length; count++) {
-			for (int i = 0; i < trucksEntered.length; i++) {
-				trucksEntered[count] = newFtArr[i];
-			}
 
+			FoodTruck ft = new FoodTruck(i + 1, null, null, 0);
+
+			System.out.println();
+			System.out.print("Enter Food Truck #" + (i + 1));
+			System.out.println();
+			System.out.print("What's the name of the food truck?");
+			String truckName = kb.nextLine();
+			if (truckName.equals("quit") || truckName.equals("Quit") || truckName.equals("QUIT")) {
+				if (i != 0) {
+					break;
+				} else {
+					System.out.println("Please enter at least 1 truck ");
+					i = i - 1;
+					continue;
+				}
+			} else {
+				ft.setTruckName(truckName);
+				System.out.println();
+				System.out.print("What's the food type?");
+				String truckFoodType = kb.nextLine();
+				ft.setFoodType(truckFoodType);
+				System.out.println();
+				System.out.print("What's the star rate between 1-5 ?");
+				int starRating = kb.nextInt();
+				kb.nextLine();
+				ft.setStarRating(starRating);
+
+				System.out.println();
+				ftArr[i] = ft;
+			}
 		}
-		return trucksEntered;
+		return ftArr;
 	}
 
 	public void optionsMenu() {
 
 		System.out.println("**********************************************");
+		System.out.println("*                                            *");
 		System.out.println("*           Please enter an option           *");
+		System.out.println("*                                            *");
 		System.out.println("**********************************************");
+		System.out.println("*                                            *");
 		System.out.println("*   1.List all existing food trucks.         *");
 		System.out.println("*   2.See the average rating of food trucks. *");
 		System.out.println("*   3.Display the highest-rated food truck.  *");
 		System.out.println("*   4.Quit the program.                      *");
+		System.out.println("*                                            *");
 		System.out.println("**********************************************");
 
 	}
@@ -81,27 +79,56 @@ public class FoodTruckApp {
 	public void getTrucksInformation(FoodTruck[] trucks) {
 		Scanner kb = new Scanner(System.in);
 		FoodTruckApp fta = new FoodTruckApp();
-		FoodTruck ft = new FoodTruck();
 		boolean option = true;
 
-		while (option) {
-			fta.optionsMenu();
-			int optionInputed = kb.nextInt();
-			kb.nextLine();
-			
-			switch (optionInputed) {
-			case 1: 
-			for(int i = 0; i < trucks.length ; i++) {
-				System.out.println(i);
-				trucks[i].displayTruck();
-				System.out.println(i);
-					continue;
-					}
-            break;
+		for (int j = 0; j < trucks.length; j++) {
+			if (trucks[j] != null) {
 			}
 
-		
+			while (option) {
+				fta.optionsMenu();
+				int optionInputed = kb.nextInt();
+				kb.nextLine();
+
+				switch (optionInputed) {
+				case 1:
+					for (int i = 0; i < trucks.length; i++) {
+						if (trucks[i] == null) {
+							continue;
+						}
+						trucks[i].displayTruck();
+					}
+					break;
+				case 2:
+					System.out.println("The rating average is: " + fta.getRatingAv(trucks));
+					break;
+				case 3:
+					break;
+				case 4: 
+					System.out.println("Thanks for using FoodBack! Hope to see you soon!");
+					option = false;
+				
+				}
+
+			}
+
+		}
 	}
 
-}
+	public double getRatingAv(FoodTruck[] trucks) {
+		double average= 0.0;
+		double sum = 0;
+		double counter = 0;
+		for(int i = 0; i < trucks.length ; i++ ) {
+			if(trucks[i] != null) {
+				sum = sum + trucks[i].getStarRating();
+				counter++;
+			} else if (trucks[i] == null) {
+				continue;
+			}
+		}
+		average = sum / counter;
+		return average;
+	}
+
 }
