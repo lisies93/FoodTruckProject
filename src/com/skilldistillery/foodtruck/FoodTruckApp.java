@@ -1,3 +1,4 @@
+
 package com.skilldistillery.foodtruck;
 
 import java.util.Scanner;
@@ -100,9 +101,26 @@ public class FoodTruckApp {
 					}
 					break;
 				case 2:
-					System.out.println("The rating average is: " + fta.getRatingAv(trucks));
+					System.out.println("The star rating average for the food trucks you entered is: " + fta.getRatingAv(trucks)+ " stars");
 					break;
 				case 3:
+					
+					int position = 0;
+					
+					double max = trucks[0].getStarRating();
+					
+					for (int i = 1; i < trucks.length; i++) {
+						if(trucks[i] != null) {
+						if (max < trucks[i].getStarRating()) {
+							max = trucks[i].getStarRating();
+							position = i;
+						}
+						} else if (trucks[i] == null) {
+							continue;
+						}
+					}
+					System.out.println("The highest rated food truck is: ");
+					trucks[position].displayTruck();
 					break;
 				case 4: 
 					System.out.println("Thanks for using FoodBack! Hope to see you soon!");
@@ -130,5 +148,6 @@ public class FoodTruckApp {
 		average = sum / counter;
 		return average;
 	}
+	
 
 }
